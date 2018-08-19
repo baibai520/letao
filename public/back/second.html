@@ -43,6 +43,7 @@
   </div>
 
 
+  <!-- 右侧主体部分 -->
   <div class="lt_main">
     <!-- 上部分 -->
     <div class="lt_topbar">
@@ -50,18 +51,148 @@
         <a href="#" class="pull-right icon_logout"><i class="glyphicon glyphicon-log-out"></i></a>
     </div>
 
+    <!-- 下半部分 -->
     <div class="container-fluid">
+
+      <!-- 面包屑导航   路径导航 -->
       <ol class="breadcrumb mt-20">
         <li><a href="#">管理系统</a></li>
         <li class="active">分类管理</li>
         <li class="active">二级分类</li>
       </ol>
+
+      <!-- 内容 -->
+      <div class="lt_content">
+        <!-- 添加按钮 -->
+        <button id="addBtn" class="btn btn-default">添加分类</button>
+        <!-- 表格 -->
+        <table class="table table-bordered table-hover mt-20">
+          <thead>		
+            <tr>
+              <th>序号</th>
+              <th>一级分类名称</th>
+              <th>二级分类名称</th>
+              <th>二级分类LOGO</th>
+            </tr>
+          </thead>
+          <tbody>  		
+            <!-- 挖个坑 -->
+          </tbody>
+        </table>
+
+
+        <!-- 进行分页插件 -->
+        <div class="text-right">
+            <ul id="paginator"></ul>
+        </div>
+        
+      </div>
     </div>
     
   </div>
 
 
+  <!-- 一进入页面进行页面渲染 -->
+  <script type="text/html" id="rdtpl">
+    <!-- 准备数据 -->
+    {{ each rows v i }}
+    <tr>
+      <td>{{ i + 1 + ( page - 1 ) * size }}</td>
+      <td>{{ v.categoryName }}</td>
+      <td>{{ v.brandName }}</td>
+      <td>
+        <img style="height: 50px" src="{{ v.brandLogo }}" alt="">
+      </td>
+    </tr>
+    {{ /each }}
+  </script>
+
+
+  <!-- 进行一级分类渲染 -->
+  <script type="text/html" id="catetpl">
+    {{ each rows v i }}
+    <li><a href="#" data-id="{{ v.id }}">{{ v.categoryName }}</a></li>
+    {{ /each }}
+  </script>
+
+
   
+  
+  <!-- 模态框退出登录功能 -->
+  <!-- 最外层的蒙层 -->
+  <div class="modal fade" tabindex="-1" id="logoutModal">
+      <!-- 模态框 -->
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+              <h4 class="modal-title">温馨提示</h4>
+            </div>
+            <div class="modal-body">
+              <p style="color:#A94442"><i class="glyphicon glyphicon-info-sign"></i> 您确定要退出后台管理系统吗？</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary" id="logoutBtn">退出</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+   <!-- 模态框添加分类功能 -->
+  <!-- 最外层的蒙层 -->
+  <div class="modal fade" tabindex="-1" id="addModal">
+      <!-- 模态框 -->
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <form id="form">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title">添加分类</h4>
+              </div>
+              <div class="modal-body">
+                <!-- 一行 下拉框按钮 -->
+                <div class="form-group">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          <span class="txt">请选择一级分类</span>
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <!-- 挖个坑 -->
+                        </ul>
+                      </div>
+                      <input type="hidden" name="categoryId">
+                      <input type="hidden" name="hot" value="1">
+                </div>   
+                <!-- 两行 输入二级分类按钮 -->
+                <div class="form-group">
+                  <input type="text" name="brandName" class="form-control" id="exampleInputEmail1" placeholder="请输入二级分类">
+                </div> 
+                <!-- 三行 选择图片按钮 -->
+                <div class="form-group">
+                  <label for="fileupload" class="btn btn-default">上传图片</label>
+                  <input style="display : none" type="file" name="pic1" data-url="/category/addSecondCategoryPic" id="fileupload">
+                </div>  
+                <!-- 四行  图片位置 -->
+                <div class="form-group" id='imgBox'>
+                  <img src="./images/none.png" alt="" style="width:100px">
+                  <input type="hidden" name="brandLogo">
+                </div>                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary" id="addSubmit">添加</button>
+              </div>
+            </form>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
 
 
   <!-- 引入jQuery的js文件 -->
@@ -72,9 +203,17 @@
   <script src="./lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
   <!-- 引入控制进度条插件 -->
   <script src="./lib/nprogress/nprogress.js"></script>
+  <!-- 引入模板插件 -->
+  <script src="./lib/artTemplate/template-web.js"></script>
+  <!-- 引入分页插件 -->
+  <script src="./lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
+  <!-- 引入文件上传实时预览插件 -->
+  <script src="./lib/jquery-fileupload/jquery.ui.widget.js"></script>
+  <script src="./lib/jquery-fileupload/jquery.fileupload.js"></script>
   <!-- 引入公共js文件 -->
   <script src="./js/common.js"></script>
   <!-- 引入我们自己的js文件 -->
+  <script src="./js/second.js"></script>
   
 </body>
 </html>
