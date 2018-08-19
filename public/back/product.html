@@ -34,66 +34,33 @@
           <a href="javascript:;" class="category"><i class="glyphicon glyphicon-list"></i><span> 分类管理</span></a>
           <div class="child" style="display: none">
             <a href="./first.html"> 一级分类</a>
-            <a href="./second.html" class="current"> 二级分类</a>
+            <a href="./second.html"> 二级分类</a>
           </div>
         </li>
-        <li><a href="./product.html"><i class="glyphicon glyphicon-tags"></i><span> 商品管理</span></a></li>
+        <li><a href="./product.html" class="current"><i class="glyphicon glyphicon-tags"></i><span> 商品管理</span></a></li>
       </ul>
     </div>
   </div>
 
 
-
-  <!-- 主体 -->
   <div class="lt_main">
     <!-- 上部分 -->
     <div class="lt_topbar">
         <a href="#" class=" pull-left icon_menu"><i class="glyphicon glyphicon-align-justify"></i></a>
         <a href="#" class="pull-right icon_logout"><i class="glyphicon glyphicon-log-out"></i></a>
     </div>
-    
-    <div class="container-fluid">
 
-      <!-- 面包屑导航 -->
+    <div class="container-fluid">
       <ol class="breadcrumb mt-20">
         <li><a href="#">管理系统</a></li>
-        <li class="active">首页</li>
+        <li class="active">商品管理</li>
       </ol>
-
-
-       <!-- echarts区域 -->
-    <div class="lt-content">
-        <div class="echarts_1 pull-left"></div>
-        <div class="echarts_2 pull-right"></div>
-      </div>
-
-
     </div>
-
+    
   </div>
 
 
-  <!-- 模态框 -->
-  <!-- 最外层的蒙层 -->
-  <div class="modal fade" tabindex="-1" id="logoutModal">
-    <!-- 模态框 -->
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            <h4 class="modal-title">温馨提示</h4>
-          </div>
-          <div class="modal-body">
-            <p style="color:#A94442"><i class="glyphicon glyphicon-info-sign"></i> 您确定要退出后台管理系统吗？</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" id="logoutBtn">退出</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
+  
 
 
   <!-- 引入jQuery的js文件 -->
@@ -104,11 +71,9 @@
   <script src="./lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
   <!-- 引入控制进度条插件 -->
   <script src="./lib/nprogress/nprogress.js"></script>
-  <!-- 引入echartsjs文件 -->
-  <script src="./lib/echarts/echarts.min.js"></script>
   <!-- 引入公共js文件 -->
   <script src="./js/common.js"></script>
   <!-- 引入我们自己的js文件 -->
-  <script src="./js/index.js"></script>
+>
 </body>
 </html>

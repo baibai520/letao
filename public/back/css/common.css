@@ -1,0 +1,162 @@
+
+.body_bg {
+  background-color : #222D32;
+}
+
+ul {
+  list-style : none;
+  margin : 0;
+  padding : 0;
+}
+
+a,
+a:hover,
+a:visited,
+a:active,
+a:link {
+  text-decoration : none;
+}
+
+
+.mt_150 {
+  margin-top : 150px;
+}
+
+.mt-20 {
+  margin-top : 20px;
+}
+
+.panel .panel-heading h4 {
+  font-size : 20px;
+  height : 40px;
+  line-height : 40px;
+  text-align : center;
+}
+
+/* 侧边栏 */
+.lt_aside {
+  height : 100%;
+  width : 180px;
+  background-color : #222D32;
+  position : fixed;
+  left : 0;
+  top : 0;
+  z-index : 99999;
+  transition : all 1s;
+} 
+
+.lt_aside.hidemenu {
+  left : -180px;
+}
+
+.lt_aside .brand {
+  width :100%;
+  height : 50px;
+  background-color : #367FA9;
+  text-align : center;
+  line-height : 50px;
+  font-size : 25px;
+}
+
+.lt_aside .brand a {
+  color : #fff;
+}
+
+.lt_aside .user {
+  width : 100%;
+  height : 180px;
+  padding-top : 30px;
+  text-align : center;
+} 
+
+.lt_aside .user img {
+  width : 80px;
+  height : 80px;
+  border-radius : 50%;
+  display : block;
+  margin : 0 auto;
+}
+
+.lt_aside .user p {
+  color : #fff;
+  font-size : 18px;
+  height : 40px;
+  line-height : 40px;
+}
+
+.lt_aside .nav a {
+  color : #fff;
+  width : 100%;
+  height : 40px;
+  display : block;
+  line-height : 40px;
+  padding-left : 40px;
+  border-left : 3px solid transparent;
+}
+
+.lt_aside .nav .child a {
+  padding-left : 60px;
+}
+
+.lt_aside .nav a.current {
+  background-color : #1D1F21;
+  border-left : 3px solid #069;
+}
+
+
+
+
+/* 主体头部区域 */
+.lt_main {
+  width : 100%;
+  height : 1000px;
+  padding-top : 50px;
+  padding-left : 180px;
+  transition : all 1s;
+}
+
+.lt_main .lt_topbar {
+  width : 100%;
+  height : 50px;
+  background-color : #3C8DBC;
+  padding-left : 180px;
+  position : fixed;
+  top : 0;
+  left : 0;
+  transition : all 1s;
+}
+
+.lt_main.hidemenu {
+  padding-left : 0px;
+}
+
+.lt_main .lt_topbar.hidemenu {
+  padding-left : 0px;
+}
+
+.lt_main .lt_topbar a {
+  font-size : 20px;
+  color : #fff;
+  width : 50px;
+  height : 50px;
+  line-height : 50px;
+  text-align : center;
+}
+
+
+/* 指定echarts的宽高的容器 */
+.echarts_1,
+.echarts_2 {
+  width : 48%;
+  height : 400px
+} 
+
+
+
+/* 用户管理  表格区域 */
+.table.table-bordered th,
+.table.table-bordered td {
+  vertical-align : middle;
+  text-align : center;
+}
+
