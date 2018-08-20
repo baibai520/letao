@@ -20,7 +20,6 @@ $( function () {
       },
       dataType : 'json',
       success : function ( info ) {
-        console.log( info );
         //模板和数据进行交互
         var htmlStr = template( 'rdtpl', info );
         //添加到页面上
@@ -79,6 +78,14 @@ $( function () {
     //赋值给ul
     $('#dropdownMenu1 .txt').text( text );
 
+    //获取当前a的id  然后赋值给name="categoryId"的input框
+    var id = $(this).data('id');
+    //赋值
+    $('[name="categoryId"]').val( id );
+
+    //重置
+    $('#form').data('bootstrapValidator').updateStatus('categoryId', 'VALID');
+
   })
 
   //功能5 : 配置文件上传插件
@@ -91,46 +98,28 @@ $( function () {
       imgUrl = data.result.picAddr;
       //赋值给imgBox中
       $('#imgBox img').attr( 'src', imgUrl );
+      //将地址赋值给name="brandLogo"的input框中
+      $('[name="brandLogo"]').val( imgUrl );
+      //重置校验状态
+      $('#form').data('bootstrapValidator').updateStatus('brandLogo', 'VALID');
     }
   })
 
-  //功能6 : 给添加分类功能的模态框中的添加按钮注册点击事件    
-  // $('#addSubmit').click( function () {
 
-  //   //获取分类的id
-
-  //   //发送ajax请求
-  //   $.ajax({
-  //     type : 'post',
-  //     url : '/category/addSecondCategory',
-  //     data : {
-  //       brandName : $('#form').serialize(),
-  //       categoryId : currentId,
-  //       brandLogo : imgUrl, 
-  //     }
-  //   }) 
-  // })
-
-
-  //功能7 : 进行表单校验
+  //功能6 : 进行表单校验
   $('#form').bootstrapValidator({
+      //1. 指定不校验的类型，默认为[':disabled', ':hidden', ':not(:visible)'],可以不设置
+      excluded: [],
+
      //2. 配置校验图标
      feedbackIcons: {
-    valid: 'glyphicon glyphicon-ok',    // 校验成功
-    invalid: 'glyphicon glyphicon-remove',  // 校验失败
-    validating: 'glyphicon glyphicon-refresh' ,// 校验中
+      valid: 'glyphicon glyphicon-ok',    // 校验成功
+      invalid: 'glyphicon glyphicon-remove',  // 校验失败
+      validating: 'glyphicon glyphicon-refresh' // 校验中
+    },
 
-    //配置字段
+    //进行字段配置
     fields : {
-      //品牌名称
-      brandName : {
-        validators : {
-          notEmpty : {
-            message : '请输入二级分类名称'
-          }
-        }
-      },
-      //一级分类的id 
       categoryId : {
         validators : {
           notEmpty : {
@@ -138,7 +127,13 @@ $( function () {
           }
         }
       },
-      //图片上传的地址
+      brandName : {
+        validators : {
+          notEmpty : {
+            message : '请输入二级分类'
+          }
+        }
+      },
       brandLogo : {
         validators : {
           notEmpty : {
@@ -147,8 +142,37 @@ $( function () {
         }
       }
     }
-    },
   })
 
+
+  //功能7 : 注册表单校验成功事件,阻止默认行为, 自己发送ajax请求
+  $('#form').on( 'success.form.bv', function ( e ) {
+    //阻止默认行为
+    e.preventDefault();
+
+    //发送ajax请求
+    $.ajax({
+      type : 'post',
+      url :'/category/addSecondCategory',
+      data : $('#form').serialize(),
+      dataType : 'json',
+      success : function ( info ) {
+        if ( info.success ) {
+          //关闭模态框
+          $('#addModal').modal('hide');
+          //更新当前页  重新渲染页面
+          currentPage = 1;
+          render();
+          //重置表单
+          $('#form').data('bootstrapValidator').resetForm( true ); 
+          //重置button的文本
+          $('.txt').text('请选择一级分类');  
+          //重置图片imgBox中的地址
+          $('#imgBox img').attr( 'src', './images/none.png'); 
+        }
+      }
+    })
+  }) 
+ 
 
 })

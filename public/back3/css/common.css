@@ -1,0 +1,19 @@
+* {
+  padding : 0;
+  margin : 0;
+}
+
+.body_bg {
+  background-color : #222D32;
+  height : 1000px;
+}
+
+.mt_150 {
+  margin-top : 150px;
+}
+
+.panel .panel-heading h4 {
+  height : 30px;
+  text-align : center;
+  line-height : 40px;
+}
